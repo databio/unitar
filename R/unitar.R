@@ -1,0 +1,92 @@
+# PACKAGE DOCUMENTATION
+#' Targets that span projects
+#'
+#' Targets! now shared!
+#'
+#' @docType package
+#' @name unitar
+#' @author Nathan Sheffield
+#'
+#' @import fs withr pepr targets
+NULL
+
+#' Execute a function across a list of tar_target folders
+#' @param tar_folders A list of root folders of targets-managed projects
+#' @param func Function to execute
+#' @param ... Additional arguments to function
+#' @export
+#' @examples 
+#' tar_folders=""
+#' unitar_exec(tar_folders, tar_meta) 
+unitar_exec = function(tar_folders, func=tar_make, ...) {
+	lapply(tar_folders, function(folder) {
+		message(folder)
+		tryCatch({
+			withr::with_dir(folder, func(...))
+		}, error=function(x) NA)
+	})
+}
+
+
+#' A global tar_make function that spans all tar_target folders
+#' @param tar_folders A list of root folders of targets-managed projects
+#' @examples
+#' tar_folders=""
+#' unitar_meta(tar_folders)
+#' @export
+unitar_make = function(tar_folders) {
+	unitar_exec(tar_folders, tar_make)
+}
+
+
+#' Call tar_meta across multiple tar projects
+#' @param tar_folders A list of root folders of targets-managed projects
+#' @param ... Additional arguments to tar_meta function
+#' @examples
+#' tar_folders=""
+#' unitar_meta(tar_folders)
+#' @export
+unitar_meta = function(tar_folders, ...) {
+	unitar_exec(tar_folders, tar_meta, ...)
+}
+
+
+#' Load targets from a list of possible target repositories
+#' 
+#' This looks in priority order through the list of tprojects, and, if it finds
+#' a matching target, loads it with
+#' except it doesn't do the load thing, it returns it. Because I don't like the
+#' side-effect of load, I prefer making things explicit. I guess the advantage
+#' to the side effect is preserving the name.
+#' 
+#' @param tar_folders A priority list of root folders of targets-managed projects
+#' @param tname The name of the target to query
+#' @export
+unitar_load = function(tar_folders, tname) {
+	utmeta = unitar_meta(tar_folders)
+	for (i in seq_len(length(utmeta))) {
+		tmeta = utmeta[[i]]
+		if (tname %in% tmeta$name) {
+			folder = tar_folders[i]
+			return(withr::with_dir(folder, readRDS(paste0("_targets/objects/", tname))))
+		}
+	}
+}
+
+
+#' Returns the path to the cache of the given target
+#' 
+#' @param tar_folders A priority list of root folders of targets-managed projects
+#' @param tname The name of the target to query
+#' @export
+unitar_path = function(tar_folders, tname) {
+	utmeta = unitar_meta(tar_folders)
+	for (i in seq_len(length(utmeta))) {
+		tmeta = utmeta[[i]]
+		if (tname %in% tmeta$name) {
+			folder = tar_folders[i]
+			return(paste0(folder, "_targets/objects/", tname))
+		}
+	}	
+}
+

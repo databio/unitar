@@ -1,0 +1,17 @@
+Package: unitar
+Title: Share computing across users and projects with targets that span projects
+Version: 0.0.1
+Authors@R: c(person("Nathan", "Sheffield", email = "nathan@code.databio.org",role = c("aut", "cre")))
+Description: A a simple R package that wraps the targets package. 
+	It provides functionality to use targets that span projects, which is outside the scope of the base targets package. With unitar, you can very easily link two targets projects, loading in built targets from other projects so that you can share caches and computing across users and projects.
+License: BSD_2_clause + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: targets, fs, withr, pepr
+Suggests: 
+    testthat (>= 3.0.0), knitr
+RoxygenNote: 7.1.1
+URL: https://github.com/databio/unitar
+BugReports: https://github.com/databio/unitar
+VignetteBuilder: knitr
+Config/testthat/edition: 3
