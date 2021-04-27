@@ -9,6 +9,6 @@ test_that("load", {
 
 	unitar::unitar_make(project_folders)
 
-	big_data_set = unitar::unitar_load(project_folders, "big_data_set")
+	big_data_set = unitar::unitar_read(project_folders, "big_data_set")
 	testthat::expect_equal(big_data_set[1] , -1.39609368)
 })

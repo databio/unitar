@@ -54,15 +54,12 @@ unitar_meta = function(tar_folders, ...) {
 #' Load targets from a list of possible target repositories
 #' 
 #' This looks in priority order through the list of tprojects, and, if it finds
-#' a matching target, loads it with
-#' except it doesn't do the load thing, it returns it. Because I don't like the
-#' side-effect of load, I prefer making things explicit. I guess the advantage
-#' to the side effect is preserving the name.
+#' a matching target, it reads it in and returns it.
 #' 
 #' @param tar_folders A priority list of root folders of targets-managed projects
 #' @param tname The name of the target to query
 #' @export
-unitar_load = function(tar_folders, tname) {
+unitar_read = function(tar_folders, tname) {
 	utmeta = unitar_meta(tar_folders)
 	for (i in seq_len(length(utmeta))) {
 		tmeta = utmeta[[i]]

@@ -52,12 +52,12 @@ peptar_path = function(p, tname) {
 }
 
 
-#' Load a target from all your PEP target folders
+#' Load a target and return it, from all your PEP target folders
 #' @param p A pepr::Project object representing your current project.
 #' @param tname The name of the target to query
 #' @export
-peptar_load = function(p, tname) {
-	unitar_load(peptar_folders(p), tname)
+peptar_read = function(p, tname) {
+	unitar_read(peptar_folders(p), tname)
 }
 
 

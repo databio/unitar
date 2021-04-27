@@ -28,7 +28,7 @@ devtools::install_github("databio/unitar")
 
 In the [target_projects](/target_projects), we have 2 subfolders. Each of these represents a separate project that uses targets; you can find a `_targets.R` file in each subfolder. These represent your typical, independent targets project folders.
 
-Here's how you'd load these targets in using `unitar_load`:
+Here's how you'd load these targets in using `unitar_read`:
 
 ```{r}
 library("unitar")
@@ -39,11 +39,11 @@ project_folders = paste(project_root, project_subfolders, sep="/")
 
 unitar::unitar_make(project_folders)
 
-big_data_set = unitar::unitar_load(project_folders, "big_data_set")
+big_data_set = unitar::unitar_read(project_folders, "big_data_set")
 head(big_data_set)
 ```
 
-`unitar_load` works like `tar_load`, but you give it a priority list of targets folders to search, and so it can search outside your current targets environment. This way you can share built targets across projects.
+`unitar_read` works like `tar_read`, but you give it a priority list of targets folders to search, and so it can search outside your current targets environment. This way you can share built targets across projects.
 
 `unitar_meta` works like `tar_meta`, but runs across all the given project folders:
 
@@ -66,6 +66,6 @@ peptar_path(p, "ref2")
 peptar_meta(p, fields="name")
 peptar_make(p)
 
-big_data_set2 = peptar_load(p, "big_data_set")
+big_data_set2 = peptar_read(p, "big_data_set")
 head(big_data_set2)
 ```
