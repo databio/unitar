@@ -56,7 +56,7 @@ unitar_meta(project_folders)
 
 I prefer the `*_read` approach because it's explicit, but if you prefer to use the common R idiom of loading data using function side effects, you can also use `unitar_load`, which mimics the `tar_load` functionality:
 
-```
+```{r}
 rm(big_data_set)
 unitar_load(project_folders, "big_data_set")
 head(big_data_set)

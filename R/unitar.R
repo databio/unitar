@@ -102,9 +102,19 @@ unitar_path = function(tar_folders, tname) {
 	for (i in seq_len(length(utmeta))) {
 		tmeta = utmeta[[i]]
 		if (tname %in% tmeta$name) {
-			folder = tar_folders[i]
+			folder = enforceTrailingSlash(tar_folders[i])
 			return(paste0(folder, "_targets/objects/", tname))
 		}
 	}	
 }
 
+
+#' Reads a target given a direct path, likely output from \code{unitar_path}
+#' 
+#' @param tpath The path to the target to read
+#' @export
+unitar_read_from_path = function(tpath) {
+	folder = gsub("(.*)/_targets/objects/.*", "\\1", tpath)
+	tname =  gsub(".*_targets/objects/(.*)", "\\1", tpath)
+	unitar_read(folder, tname)
+}
