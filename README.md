@@ -1,6 +1,6 @@
 # Unitar
 
-Unitar is a simple R package that wraps the targets package. It provides functionality to use targets that span projects, which is outside the scope of the base targets package. With unitar, you can very easily link two targets projects, loading in built targets from other projects so that you can share caches and computing across users and projects.
+Unitar is a simple R package that wraps the [targets](https://github.com/ropensci/targets) package. It provides functionality to use targets that span projects, which is outside the scope of the base targets package. With unitar, you can very easily link two targets projects, loading in built targets from other projects so that you can share caches and computing across users and projects.
 
 
 ## Basic demo
