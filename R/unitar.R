@@ -65,7 +65,8 @@ unitar_read = function(tar_folders, tname) {
 		tmeta = utmeta[[i]]
 		if (tname %in% tmeta$name) {
 			folder = tar_folders[i]
-			return(withr::with_dir(folder, readRDS(paste0("_targets/objects/", tname))))
+			# return(withr::with_dir(folder, readRDS(paste0("_targets/objects/", tname))))
+			return(withr::with_dir(folder, tar_read_raw(tname)))
 		}
 	}
 }
