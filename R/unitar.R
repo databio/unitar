@@ -86,7 +86,7 @@ unitar_load = function(tar_folders, tname) {
 		if (tname %in% tmeta$name) {
 			folder = tar_folders[i]
 			withr::with_dir(folder, tar_load_raw(tname, envir=parent.frame()))
-			invisible()
+			return(invisible())
 		}
 	}
 }
@@ -117,4 +117,20 @@ unitar_read_from_path = function(tpath) {
 	folder = gsub("(.*)/_targets/objects/.*", "\\1", tpath)
 	tname =  gsub(".*_targets/objects/(.*)", "\\1", tpath)
 	unitar_read(folder, tname)
+}
+
+
+# Here's a cross-project target factory
+#' Load targets across projects
+#' 
+#' This function will allow you to load and track cached targets
+#' from other target projects.
+#' @param tar_folders A priority list of root folders of targets-managed projects
+#' @param tname The name of the target to query
+#' @export
+unitar_read_xprj = function(tar_folders, tname) {
+	list(
+		tar_target_raw("file", unitar_path(tar_folders, tname), format = "file"),
+		tar_target_raw(tname, quote(unitar_read_from_path(file)))
+	)
 }

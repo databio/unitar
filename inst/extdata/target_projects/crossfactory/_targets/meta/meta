@@ -1,0 +1,9 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|iteration|parent|children|seconds|warnings|error
+big_data_set_path|stem|ea30239e038ff84c|b98ee0c3e8d95889|2f7fd32d25f23e48|-310062012|/home/nsheff/code/unitar/inst/extdata/target_projects/refdata1/_targets/objects/big_data_set|37f38563a9da70ed|e1706b685da82e13|76820|file|vector|||0.003||
+tname|stem||8db8a440f99ec662|2efcc1b3e52a8221|-1327634833||||0|rds|vector|||0.003||object tname_file not found
+big_data_set_file|stem|ea30239e038ff84c|c7631d0926e922de|ef46db3751d8e999|1573456287|/home/nsheff/code/unitar/inst/extdata/target_projects/refdata1/_targets/objects/big_data_set|37f38563a9da70ed|e1706b685da82e13|76820|file|vector|||0.001||
+result|stem|ea30239e038ff84c|a4ce6777bab5d83f|233591eda436040f|1204638111|_targets/objects/result|d0ee4fc7bf3b1e1d|e1706b685da82e13|76820|rds|vector|||0.004||
+big_data_set|stem|d73876bb22520d96|a4ce6777bab5d83f|80369c8936b731ca|-777343652|_targets/objects/big_data_set|b73001ea37550a8d|c04bbced340a3c07|153591|rds|vector|||0.011||
+file|stem|d73876bb22520d96|af9359a1ece1b930|ef46db3751d8e999|-1301001980|../refdata1/_targets/objects/big_data_set|8a299f9ba1f0cb5f|c04bbced340a3c07|153591|file|vector|||0.001||
+target_folders|object|5b00c89c2ebb0088||||||||||||||
+target_folders|object|5b00c89c2ebb0088

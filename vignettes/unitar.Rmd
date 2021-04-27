@@ -57,7 +57,6 @@ unitar_meta(project_folders)
 I prefer the `*_read` approach because it's explicit, but if you prefer to use the common R idiom of loading data using function side effects, you can also use `unitar_load`, which mimics the `tar_load` functionality:
 
 ```{r}
-rm(big_data_set)
 unitar_load(project_folders, "big_data_set")
 head(big_data_set)
 ```
@@ -99,4 +98,60 @@ Or, using `peptar_load`:
 peptar_load(p, "big_data_set")
 head(big_data_set)
 ```
+
+
+## Reading and tracking targets from other projects
+
+If there's a target in an external project that you want to use in your current project, there are two ways to do that. 1) In the above vignette, we just loaded the target in from that other project. 2) The other way to do it is to actually track that external target as a target in the local project. The difference is that with this way, you'll duplicate the cache of the file into the local folder.
+
+This duplication could be either an advantage or a disadvantage. If you want your project to be self-contained, with all your targets in the same folder, then you may want to track the files like that. To do that use `unitar_read_xprj()` like this:
+
+
 ```
+# _targets.R
+
+library("unitar")
+target_folders="../refdata1"
+
+list(
+  unitar_read_xprj(target_folders, "big_data_set")
+)
+```
+
+
+## Tracking external targets but not duplicating
+
+Finally, there's a third approach. What if you want to track the other external targets, so your stuff updates when they change, but you don't want to duplicate the large caches into your local folder. Well, you can do this, too... Here what you want to do is add the external file to your target list so it gets tracked, and use that as input, and then use `unitar_read_from_path` in a local function to process that data into the subset you want to keep locally.
+
+Here's an example:
+
+
+```
+# _targets.R
+library("targets")
+library("unitar")
+options(tidyverse.quiet = TRUE)
+
+
+# Function that takes an external dataset (from another targets project),
+# and returns a modified version for this project.
+local_filter_big_reference_data = function(big_data_set_path) {
+  big_data_set = unitar_read_from_path(big_data_set_path)
+  big_data_set[big_data_set > 2]
+}
+
+list(
+  tar_target(
+    big_data_set_path,
+    unitar_path("../refdata1", "big_data_set"),
+    format = "file"
+  ),
+  tar_target(
+    filtered_data_set,
+    local_filter_big_reference_data(big_data_set_path)
+  )
+)
+
+```
+
+Now, if `big_data_set` (from an external project) changes, that will invalidate your `filtered_data_set`, which will recompute. But you don't actually duplicate `big_data_set` into your local targets cache, saving space.

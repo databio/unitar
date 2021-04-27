@@ -4,7 +4,7 @@ options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c("biglm", "tidyverse"))
 
 build_big_reference_data = function() {
-  rnorm(10000)
+  rnorm(20000)
 }
 
 filter_big_reference_data = function(big_data_set) {
