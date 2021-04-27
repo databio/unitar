@@ -71,6 +71,26 @@ unitar_read = function(tar_folders, tname) {
 	}
 }
 
+#' Load targets from a list of possible target repositories
+#' 
+#' This looks in priority order through the list of tprojects, and, if it finds
+#' a matching target, it loads it silently into the workspace
+#' 
+#' @param tar_folders A priority list of root folders of targets-managed projects
+#' @param tname The name of the target to query
+#' @export
+unitar_load = function(tar_folders, tname) {
+	utmeta = unitar_meta(tar_folders)
+	for (i in seq_len(length(utmeta))) {
+		tmeta = utmeta[[i]]
+		if (tname %in% tmeta$name) {
+			folder = tar_folders[i]
+			withr::with_dir(folder, tar_load_raw(tname, envir=parent.frame()))
+			invisible()
+		}
+	}
+}
+
 
 #' Returns the path to the cache of the given target
 #' 
