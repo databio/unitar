@@ -4,15 +4,15 @@
 \alias{unitar_make}
 \title{A global tar_make function that spans all tar_target folders}
 \usage{
-unitar_make(tar_folders)
+unitar_make(tar_dirs)
 }
 \arguments{
-\item{tar_folders}{A list of root folders of targets-managed projects}
+\item{tar_dirs}{A list of root folders of targets-managed projects}
 }
 \description{
 A global tar_make function that spans all tar_target folders
 }
 \examples{
-tar_folders=""
-unitar_meta(tar_folders)
+tar_dirs=""
+unitar_meta(tar_dirs)
 }

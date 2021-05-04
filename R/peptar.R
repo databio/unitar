@@ -17,9 +17,13 @@ peptar_exec = function(p, ...) {
 #' @export
 peptar_folders = function(p) {
 	# return(p@config$tprojects)  # No path normalization
-
 	tproj_rel = function(relpath, relto) { 
-		paste0(normalizePath(withr::with_dir(dirname(relto), fs::path_wd(relpath))), "/")
+		if (fs::is_absolute_path(relpath)){
+			return(relpath)
+		} else {
+			return(paste0(
+				normalizePath(withr::with_dir(dirname(relto), fs::path_wd(relpath))), "/"))
+		}
 	}
 	unlist(lapply(p@config$tprojects, tproj_rel, p@file))
 }

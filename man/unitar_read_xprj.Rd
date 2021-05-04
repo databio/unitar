@@ -4,12 +4,12 @@
 \alias{unitar_read_xprj}
 \title{Load targets across projects}
 \usage{
-unitar_read_xprj(tar_folders, tname)
+unitar_read_xprj(tname, tar_dirs = NULL)
 }
 \arguments{
-\item{tar_folders}{A priority list of root folders of targets-managed projects}
-
 \item{tname}{The name of the target to query}
+
+\item{tar_dirs}{A priority list of root folders of targets-managed projects}
 }
 \description{
 This function will allow you to load and track cached targets

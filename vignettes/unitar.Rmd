@@ -26,8 +26,19 @@ Install `unitar` like this:
 devtools::install_github("databio/unitar")
 ```
 
+## Three modes of use
 
-## Basic demo using unitar to span projects
+There are three primary ways to use `unitar`, which differ in the way they treat external targets. External targets are targets that are not part of the current project, but belong to a different targets project. The 3 modes are:
+
+1. **Basic loading of external targets**: Load targets computed in other projects. Don't track these in the current targets project, just re-use them, and let all tracking happen in the external project. This is the basic case.
+
+2. **Load and track external targets locally**: Load external targets and also track them here. Duplicate external caches into local caches. If the external data changes, it will update the local caches, and all local files for the current project.
+
+3. **Load and track external targets, but don't duplicate caches**: Load external targets and track the original files here, but don't duplicate them into here. This can you do by just adding a "file" target with the external target file, and then writing functions that use this to produce whatever derived targets you need. This way, your targets will update if the external target changes, but you don't have to pay the cost of storing the cache twice. 
+
+For my use case, #3 is the most useful, but the others may also be useful depending on what you want.
+
+### Use case #1: Basic loading of external targets
 
 In the [target_projects](/target_projects), we have 2 subfolders. Each of these represents a separate project that uses targets; you can find a `_targets.R` file in each subfolder. These represent your typical, independent targets project folders.
 
@@ -42,7 +53,7 @@ project_folders = paste(project_root, project_subfolders, sep="/")
 
 unitar::unitar_make(project_folders)
 
-big_data_set = unitar::unitar_read(project_folders, "big_data_set")
+big_data_set = unitar::unitar_read("big_data_set", project_folders)
 head(big_data_set)
 ```
 
@@ -57,81 +68,40 @@ unitar_meta(project_folders)
 I prefer the `*_read` approach because it's explicit, but if you prefer to use the common R idiom of loading data using function side effects, you can also use `unitar_load`, which mimics the `tar_load` functionality:
 
 ```{r}
-unitar_load(project_folders, "big_data_set")
+unitar_load("big_data_set", project_folders)
 head(big_data_set)
 ```
 
-## Configuring external target folders with pepr
+### Use case #2: Load and track external targets locally
 
-It's kind of annoying to set up and pass around a `projects_folders` variable like this, so you can provide a list of folders in a configuration file for your project instead. `unitar` uses a project configuration file in [standard PEP format](http://pep.databio.org). You specify a list of target folders using the `tprojects` attribute, which may specify paths either absolute or relative to the configuration file. 
+If there's a target in an external project that you want to use in your current project, the basic way (above) just loaded the target in from that other project. Another way to do it is to actually track that external target as a target in the local project. The difference is that with this way, you'll duplicate the cache of the file into the local folder. This duplication could be either an advantage or a disadvantage. If you want your project to be self-contained, with all your targets in the same folder, then you may want to track the files like that.
 
-For example, the `project_config.yaml` file for the above `project_folders` example might look like this:
-
-```
-pep_version: "2.0.0"
-
-tprojects:
-  - ../target_projects/refdata1/
-  - ../target_projects/refdata2/
-  - ../
-```
-
-To make this work, `unitar` provides a series of `peptar_*` functions that work like the `unitar_*` functions above, but operate on PEPs that you can configure with your list of project folders.
-
-```{r}
-pep_config = system.file("extdata", "metadata/project_config.yaml", package="unitar")
-p = pepr::Project(pep_config)
-
-unitar::peptar_folders(p)
-
-unitar::peptar_path(p, "ref2")
-unitar::peptar_meta(p, fields="name")
-unitar::peptar_make(p)
-
-big_data_set2 = peptar_read(p, "big_data_set")
-head(big_data_set2)
-```
-
-Or, using `peptar_load`:
-
-```{r}
-peptar_load(p, "big_data_set")
-head(big_data_set)
-```
-
-
-## Reading and tracking targets from other projects
-
-If there's a target in an external project that you want to use in your current project, there are two ways to do that. 1) In the above vignette, we just loaded the target in from that other project. 2) The other way to do it is to actually track that external target as a target in the local project. The difference is that with this way, you'll duplicate the cache of the file into the local folder.
-
-This duplication could be either an advantage or a disadvantage. If you want your project to be self-contained, with all your targets in the same folder, then you may want to track the files like that. To do that use `unitar_read_xprj()` like this:
+To do this, we will need to add new targets to the our local `_targets.R`, so it will track the external targets. To do this, use `unitar_read_xprj()` like this:
 
 
 ```
 # _targets.R
 
 library("unitar")
-target_folders="../refdata1"
+tar_dirs="../refdata1"  # external targets projects you want to track
 
 list(
-  unitar_read_xprj(target_folders, "big_data_set")
+  unitar_read_xprj("big_data_set", tar_dirs)
 )
 ```
 
+So, it's pretty simple, really. You can think of this as just registering any external targets into your local targets list. The `unitar_read_xprj` is a target factory that makes this super easy.
 
 ## Tracking external targets but not duplicating
 
-Finally, there's a third approach. What if you want to track the other external targets, so your stuff updates when they change, but you don't want to duplicate the large caches into your local folder. Well, you can do this, too... Here what you want to do is add the external file to your target list so it gets tracked, and use that as input, and then use `unitar_read_from_path` in a local function to process that data into the subset you want to keep locally.
+Finally, there's a third approach. What if you want to track the other external targets, so your stuff updates when they change, but you don't want to duplicate large caches into your local folder? This leads to option 3. Here, what you want to do is add the external file to your target list so it gets tracked, and use that as input, and then use `unitar_read_from_path` in a local function to process that data into the subset you want to keep locally.
 
 Here's an example:
-
 
 ```
 # _targets.R
 library("targets")
 library("unitar")
-options(tidyverse.quiet = TRUE)
-
 
 # Function that takes an external dataset (from another targets project),
 # and returns a modified version for this project.
@@ -154,4 +124,67 @@ list(
 
 ```
 
-Now, if `big_data_set` (from an external project) changes, that will invalidate your `filtered_data_set`, which will recompute. But you don't actually duplicate `big_data_set` into your local targets cache, saving space.
+Now, if `big_data_set` (from an external project) changes, that will invalidate your `filtered_data_set`, which will be recomputed. But you don't actually duplicate `big_data_set` into your local targets cache, saving space.
+
+
+## Avoiding passing the tar_dirs
+
+Regardless of which of these options we choose, we're going to end up making calls in our scripts like thiS:
+
+```
+big_data_set = unitar::unitar_read("big_data_set", project_folders)
+```
+
+But it's more work to set up and pass around a `projects_folders` variable like this, relative to the simpler `targest::tar_read("big_data_set")` you could do in a local targets project. To get around this, all relevant `unitar` functions provide the ability to use R `options` as global variables, so you can set them once and then not worry about passing the project folders with every call. It's pretty easy to set up:
+
+```
+options(tar_dirs=project_folders)
+```
+
+Then you just leave that argument off of the `unitar_*` calls:
+
+```
+big_data_set = unitar::unitar_read("big_data_set")
+```
+
+Now, it's just as easy as using `targets` natively, but you get the added power of grabbing targets from multiple projects.
+
+
+## Configuring external target folders with pepr
+
+The one possible place where this may not be ideal is if you want to maintain separate lists of folders, and query them separately. Using the `options(tar_dirs=project_folders)` approach limits you to a single `project_folders` variable. Alternatively,  you can provide a list of folders in a configuration file for your project. `unitar` uses a project configuration file in [standard PEP format](http://pep.databio.org). You specify a list of target folders using the `tprojects` attribute, which may specify paths either absolute or relative to the configuration file. 
+
+For example, the `project_config.yaml` file for the above `project_folders` example might look like this:
+
+```
+pep_version: "2.0.0"
+
+tprojects:
+  - ../target_projects/refdata1/
+  - ../target_projects/refdata2/
+  - ../
+```
+
+To make this work, `unitar` provides a series of `peptar_*` functions that work like the `unitar_*` functions above, but operate on PEPs that you can configure with your list of project folders.
+
+```{r}
+pep_config = system.file("extdata", "metadata/project_config.yaml", package="unitar")
+p = pepr::Project(pep_config)
+
+unitar::peptar_dirs(p)
+
+unitar::peptar_path(p, "ref2")
+unitar::peptar_meta(p, fields="name")
+unitar::peptar_make(p)
+
+big_data_set2 = peptar_read(p, "big_data_set")
+head(big_data_set2)
+```
+
+Or, using `peptar_load`:
+
+```{r}
+peptar_load(p, "big_data_set")
+head(big_data_set)
+```
+

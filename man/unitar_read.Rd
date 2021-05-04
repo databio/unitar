@@ -4,12 +4,12 @@
 \alias{unitar_read}
 \title{Load targets from a list of possible target repositories}
 \usage{
-unitar_read(tar_folders, tname)
+unitar_read(tname, tar_dirs = NULL)
 }
 \arguments{
-\item{tar_folders}{A priority list of root folders of targets-managed projects}
-
 \item{tname}{The name of the target to query}
+
+\item{tar_dirs}{A priority list of root folders of targets-managed projects}
 }
 \description{
 This looks in priority order through the list of tprojects, and, if it finds

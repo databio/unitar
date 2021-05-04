@@ -4,12 +4,12 @@
 \alias{unitar_path}
 \title{Returns the path to the cache of the given target}
 \usage{
-unitar_path(tar_folders, tname)
+unitar_path(tname, tar_dirs = NULL)
 }
 \arguments{
-\item{tar_folders}{A priority list of root folders of targets-managed projects}
-
 \item{tname}{The name of the target to query}
+
+\item{tar_dirs}{A priority list of root folders of targets-managed projects}
 }
 \description{
 Returns the path to the cache of the given target
