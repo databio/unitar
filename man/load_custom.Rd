@@ -2,7 +2,7 @@
 % Please edit documentation in R/resource_projects.R
 \name{load_custom}
 \alias{load_custom}
-\title{Load result of a function call with custom args}
+\title{Helper function to build targets from function calls with custom args}
 \usage{
 load_custom(tname, func, args, vals)
 }
@@ -16,5 +16,6 @@ load_custom(tname, func, args, vals)
 \item{vals}{List of arg values}
 }
 \description{
-Load result of a function call with custom args
+This function is a target factory that will produce a target for an
+arbitrary function call with arbitrary arguments and values.
 }

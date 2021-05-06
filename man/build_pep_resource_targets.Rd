@@ -7,7 +7,7 @@
 build_pep_resource_targets(config)
 }
 \arguments{
-\item{p}{PEP defining targets to build}
+\item{config}{Path to PEP config file}
 }
 \description{
 Target factory to build targets from a PEP

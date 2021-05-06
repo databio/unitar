@@ -22,6 +22,23 @@ load_external_file = function(sample_name, rootpath, filepath, func) {
 }
 
 
+#' Experimental target factory to track but not duplicate external files.
+#'
+#' EXPERIMENTAL. This function is just a concept that has not been tested.
+#' It will change or disappear in future versions.
+#' @export
+track_external_target = function(tname, ext_tname, func) {
+  fullpath = unitar_path(ext_tname)
+  name_file = paste0(sample_name, "_file")
+  command_data = substitute(func(fullpath), env=list(fullpath=as.symbol(name_file), func=as.symbol(func)))
+
+  list(
+    tar_target_raw(name_file, fullpath, format = "file"),
+    tar_target_raw(tname, command_data)
+  )  
+}
+
+
 #' Helper function to build targets from function calls with custom args
 #' 
 #' This function is a target factory that will produce a target for an

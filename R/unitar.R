@@ -19,7 +19,7 @@ NULL
 #' tar_dirs=""
 #' unitar_exec(tar_dirs, tar_meta) 
 unitar_exec = function(tar_dirs, func=tar_make, ...) {
-	tar_dirs = getOption("tar_dirs")	
+	tar_dirs = get_tar_dirs(tar_dirs)	
 	lapply(tar_dirs, function(folder) {
 		message(folder)
 		tryCatch({
@@ -36,7 +36,7 @@ unitar_exec = function(tar_dirs, func=tar_make, ...) {
 #' unitar_meta(tar_dirs)
 #' @export
 unitar_make = function(tar_dirs) {
-	tar_dirs = getOption("tar_dirs")	
+	tar_dirs = get_tar_dirs(tar_dirs)
 	unitar_exec(tar_dirs, tar_make)
 }
 
@@ -49,7 +49,7 @@ unitar_make = function(tar_dirs) {
 #' unitar_meta(tar_dirs)
 #' @export
 unitar_meta = function(tar_dirs, ...) {
-	tar_dirs = getOption("tar_dirs")
+	tar_dirs = get_tar_dirs(tar_dirs)
 	unitar_exec(tar_dirs, tar_meta, ...)
 }
 
@@ -82,7 +82,7 @@ unitar_read = function(tname, tar_dirs=NULL) {
 	utmeta = unitar_meta(tar_dirs)
 	for (i in seq_len(length(utmeta))) {
 		tmeta = utmeta[[i]]
-		if (tname %in% tmeta$name) {
+		if ("name" %in% colnames(tmeta) && tname %in% tmeta$name) {
 			folder = tar_dirs[i]
 			return(withr::with_dir(folder, tar_read_raw(tname)))
 		}
@@ -103,7 +103,7 @@ unitar_load = function(tname, tar_dirs=NULL) {
 	utmeta = unitar_meta(tar_dirs)
 	for (i in seq_len(length(utmeta))) {
 		tmeta = utmeta[[i]]
-		if (tname %in% tmeta$name) {
+		if ("name" %in% colnames(tmeta) && tname %in% tmeta$name) {
 			folder = tar_dirs[i]
 			withr::with_dir(folder, tar_load_raw(tname, envir=parent.frame()))
 			return(invisible())
@@ -118,11 +118,11 @@ unitar_load = function(tname, tar_dirs=NULL) {
 #' @param tar_dirs A priority list of root folders of targets-managed projects
 #' @export
 unitar_path = function(tname, tar_dirs=NULL) {
-	tar_dirs = get_tar_dirs(tar_dirs)	
+	tar_dirs = get_tar_dirs(tar_dirs)
 	utmeta = unitar_meta(tar_dirs)
 	for (i in seq_len(length(utmeta))) {
 		tmeta = utmeta[[i]]
-		if (tname %in% tmeta$name) {
+		if ("name" %in% colnames(tmeta) && tname %in% tmeta$name) {
 			folder = enforceTrailingSlash(tar_dirs[i])
 			return(paste0(folder, "_targets/objects/", tname))
 		}
@@ -137,7 +137,7 @@ unitar_path = function(tname, tar_dirs=NULL) {
 unitar_read_from_path = function(tpath) {
 	folder = gsub("(.*)/_targets/objects/.*", "\\1", tpath)
 	tname =  gsub(".*_targets/objects/(.*)", "\\1", tpath)
-	unitar_read(folder, tname)
+	unitar_read(tname, folder)
 }
 
 

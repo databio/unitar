@@ -79,7 +79,7 @@ If there's a target in an external project that you want to use in your current 
 To do this, we will need to add new targets to the our local `_targets.R`, so it will track the external targets. To do this, use `unitar_read_xprj()` like this:
 
 
-```
+```{r}
 # _targets.R
 
 library("unitar")
@@ -98,7 +98,7 @@ Finally, there's a third approach. What if you want to track the other external 
 
 Here's an example:
 
-```
+```{r}
 # _targets.R
 library("targets")
 library("unitar")
@@ -113,7 +113,7 @@ local_filter_big_reference_data = function(big_data_set_path) {
 list(
   tar_target(
     big_data_set_path,
-    unitar_path("../refdata1", "big_data_set"),
+    unitar_path("big_data_set", "../refdata1"),
     format = "file"
   ),
   tar_target(
@@ -131,19 +131,19 @@ Now, if `big_data_set` (from an external project) changes, that will invalidate 
 
 Regardless of which of these options we choose, we're going to end up making calls in our scripts like thiS:
 
-```
+```{r}
 big_data_set = unitar::unitar_read("big_data_set", project_folders)
 ```
 
 But it's more work to set up and pass around a `projects_folders` variable like this, relative to the simpler `targest::tar_read("big_data_set")` you could do in a local targets project. To get around this, all relevant `unitar` functions provide the ability to use R `options` as global variables, so you can set them once and then not worry about passing the project folders with every call. It's pretty easy to set up:
 
-```
+```{r}
 options(tar_dirs=project_folders)
 ```
 
 Then you just leave that argument off of the `unitar_*` calls:
 
-```
+```{r}
 big_data_set = unitar::unitar_read("big_data_set")
 ```
 

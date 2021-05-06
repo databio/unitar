@@ -6,5 +6,5 @@ options(tidyverse.quiet = TRUE)
 target_folders="../refdata1"
 
 list(
-  unitar_read_xprj(target_folders, "big_data_set")
+  unitar_read_xprj("big_data_set", target_folders)
 )

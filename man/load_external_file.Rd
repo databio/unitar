@@ -2,7 +2,7 @@
 % Please edit documentation in R/resource_projects.R
 \name{load_external_file}
 \alias{load_external_file}
-\title{Load targets specified by a CSV}
+\title{Helper function to build target functions to track and read files}
 \usage{
 load_external_file(sample_name, rootpath, filepath, func)
 }
@@ -16,5 +16,7 @@ load_external_file(sample_name, rootpath, filepath, func)
 \item{func}{Function to use to load file in R}
 }
 \description{
-This function will allow you to load and track files from a resource folder
+This is a target factory that will produce a target to track
+a file, and then to read that file using an arbitrary function
+provided by the user.
 }

@@ -15,7 +15,7 @@ peptar_exec = function(p, ...) {
 #' Retrieves tar folders from PEP
 #' @param p A pepr::Project object representing your current project.
 #' @export
-peptar_folders = function(p) {
+peptar_dirs = function(p) {
 	# return(p@config$tprojects)  # No path normalization
 	tproj_rel = function(relpath, relto) { 
 		if (fs::is_absolute_path(relpath)){
@@ -34,7 +34,7 @@ peptar_folders = function(p) {
 #' @param ... Parameters to pass to tar_meta
 #' @export
 peptar_meta = function(p, ...) {
-	unitar_meta(peptar_folders(p), ...)
+	unitar_meta(peptar_dirs(p), ...)
 }
 
 
@@ -43,7 +43,7 @@ peptar_meta = function(p, ...) {
 #' @param ... Parameters to pass to tar_make
 #' @export
 peptar_make = function(p, ...) {
-	unitar_make(peptar_folders(p), ...)
+	unitar_make(peptar_dirs(p), ...)
 }
 
 
@@ -52,7 +52,7 @@ peptar_make = function(p, ...) {
 #' @param tname The name of the target to query
 #' @export
 peptar_path = function(p, tname) {
-	unitar_path(peptar_folders(p), tname)
+	unitar_path(peptar_dirs(p), tname)
 }
 
 
@@ -61,7 +61,7 @@ peptar_path = function(p, tname) {
 #' @param tname The name of the target to query
 #' @export
 peptar_read = function(p, tname) {
-	unitar_read(peptar_folders(p), tname)
+	unitar_read(peptar_dirs(p), tname)
 }
 
 
@@ -70,7 +70,7 @@ peptar_read = function(p, tname) {
 #' @param tname The name of the target to query
 #' @export
 peptar_load = function(p, tname) {
-	unitar_load(peptar_folders(p), tname)
+	unitar_load(peptar_dirs(p), tname)
 }
 
 
