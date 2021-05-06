@@ -1,7 +1,9 @@
-# This is the latest way to do it.
-#' Load targets specified by a CSV
+#' Helper function to build target functions to track and read files
 #' 
-#' This function will allow you to load and track files from a resource folder
+#' This is a target factory that will produce a target to track
+#' a file, and then to read that file using an arbitrary function
+#' provided by the user.
+#' 
 #' @param sample_name Name of the target
 #' @param rootpath Path to where resource files are kept
 #' @param filepath Relative path to file
@@ -19,8 +21,11 @@ load_external_file = function(sample_name, rootpath, filepath, func) {
   )  
 }
 
-# For functions
-#' Load result of a function call with custom args
+
+#' Helper function to build targets from function calls with custom args
+#' 
+#' This function is a target factory that will produce a target for an
+#' arbitrary function call with arbitrary arguments and values.
 #' 
 #' @param tname Target name
 #' @param func Function to call
@@ -38,11 +43,12 @@ load_custom = function(tname, func, args, vals) {
   )  
 }
 
+
 #' Target factory to build targets from a PEP
 #' 
 #' @param p PEP defining targets to build
 #' @export
-build_pep_resource_targets = function(p) {
+build_pep_resource_targets_prj = function(p) {
   tbl = sampleTable(p)
   loadable_targets = list()
   i=1
@@ -60,4 +66,34 @@ build_pep_resource_targets = function(p) {
     }
   }
   return(loadable_targets)
+}
+
+
+#' Target factory to build targets from a PEP
+#' 
+#' @param config Path to PEP config file
+#' @export
+build_pep_resource_targets = function(config) {
+  p = pepr::Project("config.yaml")
+  return(build_pep_resource_targets_prj(p))
+}
+
+
+#' Helper function to load target-creation functions from PEP config
+#' 
+#' This function simple sources the target functions specified in
+#' a 'target_load_functions' attribute of a PEP. It's meant to be
+#' called from a _targets.R file, so you don't have to source those
+#' scripts individually, but can consolidate the configuration into
+#' the PEP config file.
+#' @param config Path to the PEP config file for the resource targets list.
+#' @export
+source_target_functions = function(config) {
+  p = pepr::Project("config.yaml")
+
+  # The config should have a pointer to source files:
+  tf = config(p)$target_load_functions
+  for (i in 1:length(tf)) {
+    source(tf[[i]], local=parent.frame())
+  }
 }

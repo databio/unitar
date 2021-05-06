@@ -19,6 +19,7 @@ NULL
 #' tar_dirs=""
 #' unitar_exec(tar_dirs, tar_meta) 
 unitar_exec = function(tar_dirs, func=tar_make, ...) {
+	tar_dirs = getOption("tar_dirs")	
 	lapply(tar_dirs, function(folder) {
 		message(folder)
 		tryCatch({
@@ -35,6 +36,7 @@ unitar_exec = function(tar_dirs, func=tar_make, ...) {
 #' unitar_meta(tar_dirs)
 #' @export
 unitar_make = function(tar_dirs) {
+	tar_dirs = getOption("tar_dirs")	
 	unitar_exec(tar_dirs, tar_make)
 }
 
@@ -47,6 +49,7 @@ unitar_make = function(tar_dirs) {
 #' unitar_meta(tar_dirs)
 #' @export
 unitar_meta = function(tar_dirs, ...) {
+	tar_dirs = getOption("tar_dirs")
 	unitar_exec(tar_dirs, tar_meta, ...)
 }
 
