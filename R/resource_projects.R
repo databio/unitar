@@ -83,7 +83,7 @@ build_pep_resource_targets_prj = function(p) {
                                        tbl[[i, "function"]],
                                        tbl[[i, "argname"]],
                                        tbl[[i, "argval"]],
-                                       tbl[[i, "argtype"]],
+                                       tbl[[i, "argtype"]]
                                     )
     }
   }
