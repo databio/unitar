@@ -46,18 +46,21 @@ track_external_target = function(tname, ext_tname, func) {
 #' 
 #' @param tname Target name
 #' @param func Function to call
-#' @param args List of arg names
-#' @param vals List of arg values
+#' @param argnames List of arg names
+#' @param argvals List of arg values
+#' @param argtypes List of arg types (use 'symbol' for targets)
 #' @export
-load_custom = function(tname, func, args, vals) {
-  l = as.list(vals)
-  names(l) = args
-  command_data = substitute(do.call(func, args), env=list(args=l, 
-      func=as.symbol(func)))
-
-  list(
-    tar_target_raw(tname, command_data)
-  )  
+load_custom = function(tname, func, argnames, argvals, argtypes) {
+  l = as.list(argvals)
+  names(l) = argnames
+  l[argtypes == "symbol"] = lapply(l[argtypes == "symbol"], as.symbol)
+  l[argtypes == "numeric"] = lapply(l[argtypes == "numeric"], as.numeric) 
+  args_expr = as.call(c(as.symbol("list"), l))
+  command_data = substitute(
+    do.call(func, args),
+    env = list(args = args_expr, func = as.symbol(func))
+  )
+  tar_target_raw(tname, command_data)
 }
 
 
