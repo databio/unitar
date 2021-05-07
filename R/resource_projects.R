@@ -81,8 +81,10 @@ build_pep_resource_targets_prj = function(p) {
     } else if (tbl[[i, "type"]] == "call") {
       loadable_targets[[i]] = load_custom(tbl[[i, "sample_name"]],
                                        tbl[[i, "function"]],
-                                       tbl[[i, "arg"]],
-                                      tbl[[i, "val"]])
+                                       tbl[[i, "argname"]],
+                                       tbl[[i, "argval"]],
+                                       tbl[[i, "argtype"]],
+                                    )
     }
   }
   return(loadable_targets)
