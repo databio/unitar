@@ -4,7 +4,7 @@
 \alias{unitar_exec}
 \title{Execute a function across a list of tar_target folders}
 \usage{
-unitar_exec(tar_dirs, func = tar_make, ...)
+unitar_exec(tar_dirs = NULL, func = tar_make, ...)
 }
 \arguments{
 \item{tar_dirs}{A list of root folders of targets-managed projects}

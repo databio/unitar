@@ -4,7 +4,7 @@
 \alias{unitar_meta}
 \title{Call tar_meta across multiple tar projects}
 \usage{
-unitar_meta(tar_dirs, ...)
+unitar_meta(tar_dirs = NULL, ...)
 }
 \arguments{
 \item{tar_dirs}{A list of root folders of targets-managed projects}

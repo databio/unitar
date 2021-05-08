@@ -18,7 +18,7 @@ NULL
 #' @examples 
 #' tar_dirs=""
 #' unitar_exec(tar_dirs, tar_meta) 
-unitar_exec = function(tar_dirs, func=tar_make, ...) {
+unitar_exec = function(tar_dirs=NULL, func=tar_make, ...) {
 	tar_dirs = get_tar_dirs(tar_dirs)	
 	lapply(tar_dirs, function(folder) {
 		message(folder)
@@ -35,7 +35,7 @@ unitar_exec = function(tar_dirs, func=tar_make, ...) {
 #' tar_dirs=""
 #' unitar_meta(tar_dirs)
 #' @export
-unitar_make = function(tar_dirs) {
+unitar_make = function(tar_dirs=NULL) {
 	tar_dirs = get_tar_dirs(tar_dirs)
 	unitar_exec(tar_dirs, tar_make)
 }
@@ -48,7 +48,7 @@ unitar_make = function(tar_dirs) {
 #' tar_dirs=""
 #' unitar_meta(tar_dirs)
 #' @export
-unitar_meta = function(tar_dirs, ...) {
+unitar_meta = function(tar_dirs=NULL, ...) {
 	tar_dirs = get_tar_dirs(tar_dirs)
 	unitar_exec(tar_dirs, tar_meta, ...)
 }
@@ -58,7 +58,7 @@ unitar_meta = function(tar_dirs, ...) {
 #' 
 #' @param tar_dirs Folder or list of folders (or NULL if using option)
 #' @export
-get_tar_dirs = function(tar_dirs) {
+get_tar_dirs = function(tar_dirs=NULL) {
 	if (is.null(tar_dirs)) {
 		tar_dirs = getOption("tar_dirs")
 	}

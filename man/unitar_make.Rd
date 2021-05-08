@@ -4,7 +4,7 @@
 \alias{unitar_make}
 \title{A global tar_make function that spans all tar_target folders}
 \usage{
-unitar_make(tar_dirs)
+unitar_make(tar_dirs = NULL)
 }
 \arguments{
 \item{tar_dirs}{A list of root folders of targets-managed projects}
