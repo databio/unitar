@@ -124,19 +124,16 @@ build_pep_resource_targets_prj2 = function(p) {
   tbl = sampleTable(p)
   loadable_targets = list()
   i=1
-  # sampleTable(p)[argtype=="file",pepr::.expandPath(paste(config(p)$data_root, argval, sep="/"))]
-
   for (i in 1:nrow(tbl)) {
       loadable_targets[[i]] = load_custom2(tbl[[i, "sample_name"]],
                                        tbl[[i, "function"]],
                                        tbl[[i, "argname"]],
-                                       tbl[[i, "argval"]],
+                                       pepr::.expandPath(tbl[[i, "argval"]]),
                                        tbl[[i, "argtype"]]
                                     )
   }
   return(loadable_targets)
 }
-
 
 
 
