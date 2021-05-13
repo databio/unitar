@@ -186,8 +186,8 @@
 ##   name   type   data    command depend     seed path  time                size  
 ##   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt; &lt;lis&gt; &lt;dttm&gt;              &lt;chr&gt; 
 ## 1 targe… object 5b00c8… &lt;NA&gt;    &lt;NA&gt;    NA      &lt;chr… NA                  &lt;NA&gt;  
-## 2 file   stem   d73876… af9359… ef46db… -1.30e9 &lt;chr… 2021-05-13 18:55:46 c04bb…
-## 3 big_d… stem   d73876… a4ce67… 80369c… -7.77e8 &lt;chr… 2021-05-13 18:55:46 c04bb…
+## 2 file   stem   d73876… af9359… ef46db… -1.30e9 &lt;chr… 2021-05-13 19:08:45 c04bb…
+## 3 big_d… stem   d73876… a4ce67… 80369c… -7.77e8 &lt;chr… 2021-05-13 19:08:45 c04bb…
 ## # … with 8 more variables: bytes &lt;int&gt;, format &lt;chr&gt;, iteration &lt;chr&gt;,
 ## #   parent &lt;lgl&gt;, children &lt;list&gt;, seconds &lt;dbl&gt;, warnings &lt;lgl&gt;, error &lt;lgl&gt;
 ## 
@@ -206,8 +206,8 @@
 ##   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;     &lt;int&gt; &lt;lis&gt; &lt;dttm&gt;              &lt;chr&gt;
 ## 1 build_… funct… 222a0… &lt;NA&gt;     &lt;NA&gt;    NA      &lt;chr… NA                  &lt;NA&gt; 
 ## 2 filter… funct… 64192… &lt;NA&gt;     &lt;NA&gt;    NA      &lt;chr… NA                  &lt;NA&gt; 
-## 3 big_da… stem   d7387… b17c53f… 3119dd… -7.77e8 &lt;chr… 2021-05-13 18:55:46 c04b…
-## 4 filter… stem   f550c… 0eb59b1… 15faf7… -1.06e9 &lt;chr… 2021-05-13 18:55:46 0992…
+## 3 big_da… stem   d7387… b17c53f… 3119dd… -7.77e8 &lt;chr… 2021-05-13 19:08:45 c04b…
+## 4 filter… stem   f550c… 0eb59b1… 15faf7… -1.06e9 &lt;chr… 2021-05-13 19:08:45 0992…
 ## # … with 8 more variables: bytes &lt;int&gt;, format &lt;chr&gt;, iteration &lt;chr&gt;,
 ## #   parent &lt;lgl&gt;, children &lt;list&gt;, seconds &lt;dbl&gt;, warnings &lt;chr&gt;, error &lt;lgl&gt;
 ## 
@@ -217,8 +217,8 @@
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;lis&gt; &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt;
 ## 1 ref_… func… 39f7… &lt;NA&gt;    &lt;NA&gt;   NA      &lt;chr… NA                  &lt;NA&gt;     NA
 ## 2 filt… func… 6419… &lt;NA&gt;    &lt;NA&gt;   NA      &lt;chr… NA                  &lt;NA&gt;     NA
-## 3 ref2  stem  cb38… 22b9ae… 43d0f… -2.20e8 &lt;chr… 2021-05-13 18:55:46 d8c8…   646
-## 4 filt… stem  cb38… 55c19c… 77341…  9.90e7 &lt;chr… 2021-05-13 18:55:46 d8c8…   646
+## 3 ref2  stem  cb38… 22b9ae… 43d0f… -2.20e8 &lt;chr… 2021-05-13 19:08:45 d8c8…   646
+## 4 filt… stem  cb38… 55c19c… 77341…  9.90e7 &lt;chr… 2021-05-13 19:08:45 d8c8…   646
 ## # … with 7 more variables: format &lt;chr&gt;, iteration &lt;chr&gt;, parent &lt;lgl&gt;,
 ## #   children &lt;list&gt;, seconds &lt;dbl&gt;, warnings &lt;chr&gt;, error &lt;lgl&gt;</code></pre>
 <p>I prefer the <code>*_read</code> approach because it’s explicit, but if you prefer to use the common R idiom of loading data using function side effects, you can also use <code>unitar_load</code>, which mimics the <code>tar_load</code> functionality:</p>
