@@ -49,8 +49,7 @@ track_external_target = function(tname, ext_tname, func) {
 #' @param argnames List of arg names
 #' @param argvals List of arg values
 #' @param argtypes List of arg types (use 'symbol' for targets)
-#' @export
-load_custom = function(tname, func, argnames, argvals, argtypes) {
+load_custom_old = function(tname, func, argnames, argvals, argtypes) {
   l = as.list(argvals)
   names(l) = argnames
   l[argtypes == "symbol"] = lapply(l[argtypes == "symbol"], as.symbol)
@@ -63,11 +62,26 @@ load_custom = function(tname, func, argnames, argvals, argtypes) {
   tar_target_raw(tname, command_data)
 }
 
+
 # This version adds support for argtypes=file
-load_custom2 = function(tname, func, argnames, argvals, argtypes) {
+#' Helper function to build targets from function calls with custom args
+#' 
+#' This function is a target factory that will produce a target for an
+#' arbitrary function call with arbitrary arguments and values.
+#' 
+#' @param tname Target name
+#' @param func Function to call
+#' @param argnames List of arg names
+#' @param argvals List of arg values
+#' @param argtypes List of arg types (use 'symbol' for targets)
+#' @export
+load_custom = function(tname, func, argnames, argvals, argtypes) {
   l = as.list(argvals)
   names(l) = argnames
 
+  # First, handle function calls that have file paths as argument:
+  # 1. Add a file tracking target, with _fileX appended to the target name
+  # 2. Adjust the argument to be a symbol with appropriate target name
   nFiles = length(l[argtypes == "file"])
   targets_list = list()
   for (i in seq_len(nFiles)) {
@@ -79,6 +93,7 @@ load_custom2 = function(tname, func, argnames, argvals, argtypes) {
     argtypes[argtypes == "file"][i] = "symbol"
   }
 
+  # Next, handle all other argument types.
   l[argtypes == "symbol"] = lapply(l[argtypes == "symbol"], as.symbol)
   l[argtypes == "numeric"] = lapply(l[argtypes == "numeric"], as.numeric) 
   args_expr = as.call(c(as.symbol("list"), l))
@@ -96,8 +111,7 @@ load_custom2 = function(tname, func, argnames, argvals, argtypes) {
 #' Target factory to build targets from a PEP
 #' 
 #' @param p PEP defining targets to build
-#' @export
-build_pep_resource_targets_prj = function(p) {
+build_pep_resource_targets_prj_old = function(p) {
   tbl = sampleTable(p)
   loadable_targets = list()
   i=1
@@ -119,13 +133,17 @@ build_pep_resource_targets_prj = function(p) {
   return(loadable_targets)
 }
 
+
+#' Target factory to build targets from a PEP
+#' 
+#' @param p PEP defining targets to build
 #' @export
-build_pep_resource_targets_prj2 = function(p) {
+build_pep_resource_targets_prj = function(p) {
   tbl = sampleTable(p)
   loadable_targets = list()
   i=1
   for (i in 1:nrow(tbl)) {
-      loadable_targets[[i]] = load_custom2(tbl[[i, "sample_name"]],
+      loadable_targets[[i]] = load_custom(tbl[[i, "sample_name"]],
                                        tbl[[i, "function"]],
                                        tbl[[i, "argname"]],
                                        pepr::.expandPath(tbl[[i, "argval"]]),
