@@ -153,6 +153,32 @@ build_pep_resource_targets_prj = function(p) {
   return(loadable_targets)
 }
 
+#' Target factory for arbitrary functions on PEP samples
+#' 
+#' This target factory creates a target for each element of a PEP. You can
+#' name the targets using a pattern that uses brackets to indicate sample
+#' attributes, like `{sample_name}`.
+#' 
+#' @param p PEP.
+#' @param tpattern Target name, with patterns allowed
+#' @param func Function to call
+#' @param argnames List of arg names
+#' @param argvals_pattern List of arg values, with patterns allowed
+#' @param argtypes List of arg types (use 'symbol' for targets)
+#' 
+#' @export
+tar_build_from_pep = function(p, tpattern, func, argnames, argvals_pattern, argtypes) {
+  tbl = sampleTable(p)
+  loadable_targets = list() 
+  for (i in 1:nrow(tbl)) {
+    tname = with(tbl[i,], glue(tpattern))
+    argvals = sapply(argvals_pattern, function(x) {
+      with(tbl[i,], glue(x))
+    })
+    loadable_targets[[i]] = unitar::load_custom(tname, func, argnames, argvals, argtypes)
+  }
+  return(loadable_targets)
+}
 
 
 
