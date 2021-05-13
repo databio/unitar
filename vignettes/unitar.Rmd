@@ -92,7 +92,7 @@ list(
 
 So, it's pretty simple, really. You can think of this as just registering any external targets into your local targets list. The `unitar_read_xprj` is a target factory that makes this super easy.
 
-## Tracking external targets but not duplicating
+### Use case #3: Tracking external targets but not duplicating
 
 Finally, there's a third approach. What if you want to track the other external targets, so your stuff updates when they change, but you don't want to duplicate large caches into your local folder? This leads to option 3. Here, what you want to do is add the external file to your target list so it gets tracked, and use that as input, and then use `unitar_read_from_path` in a local function to process that data into the subset you want to keep locally.
 
