@@ -63,6 +63,35 @@ load_custom = function(tname, func, argnames, argvals, argtypes) {
   tar_target_raw(tname, command_data)
 }
 
+# This version adds support for argtypes=file
+load_custom2 = function(tname, func, argnames, argvals, argtypes) {
+  l = as.list(argvals)
+  names(l) = argnames
+
+  nFiles = length(l[argtypes == "file"])
+  targets_list = list()
+  for (i in seq_len(nFiles)) {
+    path = l[argtypes == "file"][i]
+    tname_file = paste0(tname, "_file", i)
+    targets_list = append(targets_list, 
+        tar_target_raw(tname_file, path, format="file"))
+    l[argtypes == "file"][i] = tname_file  
+    argtypes[argtypes == "file"][i] = "symbol"
+  }
+
+  l[argtypes == "symbol"] = lapply(l[argtypes == "symbol"], as.symbol)
+  l[argtypes == "numeric"] = lapply(l[argtypes == "numeric"], as.numeric) 
+  args_expr = as.call(c(as.symbol("list"), l))
+  command_data = substitute(
+    do.call(func, args),
+    env = list(args = args_expr, func = as.symbol(func))
+  )
+  targets_list = append(targets_list, tar_target_raw(tname, command_data))
+  targets_list
+}
+
+
+
 
 #' Target factory to build targets from a PEP
 #' 
@@ -89,6 +118,27 @@ build_pep_resource_targets_prj = function(p) {
   }
   return(loadable_targets)
 }
+
+#' @export
+build_pep_resource_targets_prj2 = function(p) {
+  tbl = sampleTable(p)
+  loadable_targets = list()
+  i=1
+  # sampleTable(p)[argtype=="file",pepr::.expandPath(paste(config(p)$data_root, argval, sep="/"))]
+
+  for (i in 1:nrow(tbl)) {
+      loadable_targets[[i]] = load_custom2(tbl[[i, "sample_name"]],
+                                       tbl[[i, "function"]],
+                                       tbl[[i, "argname"]],
+                                       tbl[[i, "argval"]],
+                                       tbl[[i, "argtype"]]
+                                    )
+  }
+  return(loadable_targets)
+}
+
+
+
 
 
 #' Target factory to build targets from a PEP

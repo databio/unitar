@@ -2,6 +2,7 @@
 
 export(build_pep_resource_targets)
 export(build_pep_resource_targets_prj)
+export(build_pep_resource_targets_prj2)
 export(get_tar_dirs)
 export(load_custom)
 export(load_external_file)
