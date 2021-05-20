@@ -130,11 +130,12 @@
 ##   method      from
 ##   print.bytes Rcpp
 ## ../refdata1
-## ✔ skip target file
 ## ✔ skip target big_data_set
+## ✔ skip target filtered_data
 ## ✔ skip pipeline
-## Warning message:
-## In file_diff_dbl(chr) : NAs introduced by coercion</code></pre>
+## • start target file
+## • end pipeline
+## Error : target file did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossproj</code></pre>
 <pre><code>## Loading required package: fs
 ## Loading required package: withr
@@ -154,7 +155,7 @@
 ## ✔ skip target filt_ref2
 ## ✔ skip pipeline</code></pre>
 <pre><code>## [[1]]
-## NULL
+## [1] NA
 ## 
 ## [[2]]
 ## [1] NA
@@ -167,77 +168,129 @@
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">big_data_set</span> <span class="op">=</span> <span class="fu">unitar</span><span class="fu">::</span><span class="fu"><a href="../reference/unitar_read.html">unitar_read</a></span><span class="op">(</span><span class="st">"big_data_set"</span>, <span class="va">project_folders</span><span class="op">)</span></code></pre></div>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossfactory</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## ../refdata1
+## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline
+## • start target file
+## • end pipeline
+## Error : target file did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossproj</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## • start target big_data_set_path
+## big_data_set
+## • end pipeline
+## Error : target big_data_set_path did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1</code></pre>
+<pre><code>## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata2</code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<pre><code>## ✔ skip target ref2
+## ✔ skip target filt_ref2
+## ✔ skip pipeline</code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">big_data_set</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -1.39609368 -0.04912618 -1.39020596 -0.74866919  0.93453822  0.97008189</code></pre>
+<pre><code>## NULL</code></pre>
 <p><code>unitar_read</code> works like <code>tar_read</code>, but you give it a priority list of targets folders to search, and so it can search outside your current targets environment. This way you can share built targets across projects.</p>
 <p><code>unitar_meta</code> works like <code>tar_meta</code>, but runs across all the given project folders:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/unitar_meta.html">unitar_meta</a></span><span class="op">(</span><span class="va">project_folders</span><span class="op">)</span></code></pre></div>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossfactory</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## ../refdata1
+## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline
+## • start target file
+## • end pipeline
+## Error : target file did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossproj</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## • start target big_data_set_path
+## big_data_set
+## • end pipeline
+## Error : target big_data_set_path did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1</code></pre>
+<pre><code>## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata2</code></pre>
+<pre><code>## ✔ skip target ref2
+## ✔ skip target filt_ref2
+## ✔ skip pipeline</code></pre>
 <pre><code>## [[1]]
-## # A tibble: 3 x 17
-##   name   type   data    command depend     seed path  time                size  
-##   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt; &lt;lis&gt; &lt;dttm&gt;              &lt;chr&gt; 
-## 1 targe… object 5b00c8… &lt;NA&gt;    &lt;NA&gt;    NA      &lt;chr… NA                  &lt;NA&gt;  
-## 2 file   stem   d73876… af9359… ef46db… -1.30e9 &lt;chr… 2021-05-20 13:56:44 c04bb…
-## 3 big_d… stem   d73876… a4ce67… 80369c… -7.77e8 &lt;chr… 2021-05-20 13:56:44 c04bb…
-## # … with 8 more variables: bytes &lt;int&gt;, format &lt;chr&gt;, iteration &lt;chr&gt;,
-## #   parent &lt;lgl&gt;, children &lt;list&gt;, seconds &lt;dbl&gt;, warnings &lt;lgl&gt;, error &lt;lgl&gt;
+## [1] NA
 ## 
 ## [[2]]
-## # A tibble: 2 x 17
-##   name  type  data  command depend    seed path  time                size  bytes
-##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;lis&gt; &lt;dttm&gt;              &lt;lgl&gt; &lt;int&gt;
-## 1 big_… stem  &lt;NA&gt;  ad0848… 77bd0… -3.10e8 &lt;chr… NA                  NA        0
-## 2 loca… func… a1c5… &lt;NA&gt;    &lt;NA&gt;   NA      &lt;chr… NA                  NA       NA
-## # … with 7 more variables: format &lt;chr&gt;, iteration &lt;chr&gt;, parent &lt;lgl&gt;,
-## #   children &lt;list&gt;, seconds &lt;dbl&gt;, warnings &lt;lgl&gt;, error &lt;chr&gt;
+## [1] NA
 ## 
 ## [[3]]
-## # A tibble: 4 x 17
-##   name    type   data   command  depend     seed path  time                size 
-##   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;     &lt;int&gt; &lt;lis&gt; &lt;dttm&gt;              &lt;chr&gt;
-## 1 build_… funct… 222a0… &lt;NA&gt;     &lt;NA&gt;    NA      &lt;chr… NA                  &lt;NA&gt; 
-## 2 filter… funct… 64192… &lt;NA&gt;     &lt;NA&gt;    NA      &lt;chr… NA                  &lt;NA&gt; 
-## 3 big_da… stem   d7387… b17c53f… 3119dd… -7.77e8 &lt;chr… 2021-05-20 13:56:44 c04b…
-## 4 filter… stem   f550c… 0eb59b1… 15faf7… -1.06e9 &lt;chr… 2021-05-20 13:56:44 0992…
-## # … with 8 more variables: bytes &lt;int&gt;, format &lt;chr&gt;, iteration &lt;chr&gt;,
-## #   parent &lt;lgl&gt;, children &lt;list&gt;, seconds &lt;dbl&gt;, warnings &lt;chr&gt;, error &lt;lgl&gt;
+## NULL
 ## 
 ## [[4]]
-## # A tibble: 4 x 17
-##   name  type  data  command depend    seed path  time                size  bytes
-##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;lis&gt; &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt;
-## 1 ref_… func… 39f7… &lt;NA&gt;    &lt;NA&gt;   NA      &lt;chr… NA                  &lt;NA&gt;     NA
-## 2 filt… func… 6419… &lt;NA&gt;    &lt;NA&gt;   NA      &lt;chr… NA                  &lt;NA&gt;     NA
-## 3 ref2  stem  cb38… 22b9ae… 43d0f… -2.20e8 &lt;chr… 2021-05-20 13:56:44 d8c8…   646
-## 4 filt… stem  cb38… 55c19c… 77341…  9.90e7 &lt;chr… 2021-05-20 13:56:44 d8c8…   646
-## # … with 7 more variables: format &lt;chr&gt;, iteration &lt;chr&gt;, parent &lt;lgl&gt;,
-## #   children &lt;list&gt;, seconds &lt;dbl&gt;, warnings &lt;chr&gt;, error &lt;lgl&gt;</code></pre>
+## NULL</code></pre>
 <p>I prefer the <code>*_read</code> approach because it’s explicit, but if you prefer to use the common R idiom of loading data using function side effects, you can also use <code>unitar_load</code>, which mimics the <code>tar_load</code> functionality:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/unitar_load.html">unitar_load</a></span><span class="op">(</span><span class="st">"big_data_set"</span>, <span class="va">project_folders</span><span class="op">)</span></code></pre></div>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossfactory</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## ../refdata1
+## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline
+## • start target file
+## • end pipeline
+## Error : target file did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossproj</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## • start target big_data_set_path
+## big_data_set
+## • end pipeline
+## Error : target big_data_set_path did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1</code></pre>
+<pre><code>## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata2</code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<pre><code>## ✔ skip target ref2
+## ✔ skip target filt_ref2
+## ✔ skip pipeline</code></pre>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">big_data_set</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -1.39609368 -0.04912618 -1.39020596 -0.74866919  0.93453822  0.97008189</code></pre>
+<pre><code>## NULL</code></pre>
 </div>
 <div id="use-case-2-load-and-track-external-targets-locally" class="section level3">
 <h3 class="hasAnchor">
 <a href="#use-case-2-load-and-track-external-targets-locally" class="anchor"></a>Use case #2: Load and track external targets locally</h3>
 <p>If there’s a target in an external project that you want to use in your current project, the basic way (above) just loaded the target in from that other project. Another way to do it is to actually track that external target as a target in the local project. The difference is that with this way, you’ll duplicate the cache of the file into the local folder. This duplication could be either an advantage or a disadvantage. If you want your project to be self-contained, with all your targets in the same folder, then you may want to track the files like that.</p>
 <p>To do this, we will need to add new targets to the our local <code>_targets.R</code>, so it will track the external targets. To do this, use <code><a href="../reference/unitar_read_xprj.html">unitar_read_xprj()</a></code> like this:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># _targets.R</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/databio/unitar">"unitar"</a></span><span class="op">)</span>
@@ -325,7 +378,7 @@
 <a href="#use-case-3-tracking-external-targets-but-not-duplicating" class="anchor"></a>Use case #3: Tracking external targets but not duplicating</h3>
 <p>Finally, there’s a third approach. What if you want to track the other external targets, so your stuff updates when they change, but you don’t want to duplicate large caches into your local folder? This leads to option 3. Here, what you want to do is add the external file to your target list so it gets tracked, and use that as input, and then use <code>unitar_read_from_path</code> in a local function to process that data into the subset you want to keep locally.</p>
 <p>Here’s an example:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># _targets.R</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://docs.ropensci.org/targets/">"targets"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/databio/unitar">"unitar"</a></span><span class="op">)</span>
@@ -425,22 +478,76 @@
 <h2 class="hasAnchor">
 <a href="#avoiding-passing-the-tar_dirs" class="anchor"></a>Avoiding passing the tar_dirs</h2>
 <p>Regardless of which of these options we choose, we’re going to end up making calls in our scripts like thiS:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">big_data_set</span> <span class="op">=</span> <span class="fu">unitar</span><span class="fu">::</span><span class="fu"><a href="../reference/unitar_read.html">unitar_read</a></span><span class="op">(</span><span class="st">"big_data_set"</span>, <span class="va">project_folders</span><span class="op">)</span></code></pre></div>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossfactory</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## ../refdata1
+## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline
+## • start target file
+## • end pipeline
+## Error : target file did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossproj</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## • start target big_data_set_path
+## big_data_set
+## • end pipeline
+## Error : target big_data_set_path did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1</code></pre>
+<pre><code>## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata2</code></pre>
+<pre><code>## ✔ skip target ref2
+## ✔ skip target filt_ref2
+## ✔ skip pipeline</code></pre>
 <p>But it’s more work to set up and pass around a <code>projects_folders</code> variable like this, relative to the simpler <code>targest::tar_read("big_data_set")</code> you could do in a local targets project. To get around this, all relevant <code>unitar</code> functions provide the ability to use R <code>options</code> as global variables, so you can set them once and then not worry about passing the project folders with every call. It’s pretty easy to set up:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>tar_dirs<span class="op">=</span><span class="va">project_folders</span><span class="op">)</span></code></pre></div>
 <p>Then you just leave that argument off of the <code>unitar_*</code> calls:</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">big_data_set</span> <span class="op">=</span> <span class="fu">unitar</span><span class="fu">::</span><span class="fu"><a href="../reference/unitar_read.html">unitar_read</a></span><span class="op">(</span><span class="st">"big_data_set"</span><span class="op">)</span></code></pre></div>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossfactory</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## ../refdata1
+## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline
+## • start target file
+## • end pipeline
+## Error : target file did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/crossproj</code></pre>
+<pre><code>## Loading required package: fs
+## Loading required package: withr
+## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp
+## • start target big_data_set_path
+## big_data_set
+## • end pipeline
+## Error : target big_data_set_path did not return a character. dynamic files (targets with format = "file") must return character vectors of file or directory paths.</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1</code></pre>
+<pre><code>## ✔ skip target big_data_set
+## ✔ skip target filtered_data
+## ✔ skip pipeline</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata2</code></pre>
+<pre><code>## ✔ skip target ref2
+## ✔ skip target filt_ref2
+## ✔ skip pipeline</code></pre>
 <p>Now, it’s just as easy as using <code>targets</code> natively, but you get the added power of grabbing targets from multiple projects.</p>
 </div>
 <div id="configuring-external-target-folders-with-pepr" class="section level2">
@@ -455,57 +562,32 @@ tprojects:
   - ../target_projects/refdata2/
   - ../</code></pre>
 <p>To make this work, <code>unitar</code> provides a series of <code>peptar_*</code> functions that work like the <code>unitar_*</code> functions above, but operate on PEPs that you can configure with your list of project folders.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pep_config</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"metadata/project_config.yaml"</span>, package<span class="op">=</span><span class="st">"unitar"</span><span class="op">)</span>
 <span class="va">p</span> <span class="op">=</span> <span class="fu">pepr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pepr/man/Project.html">Project</a></span><span class="op">(</span><span class="va">pep_config</span><span class="op">)</span></code></pre></div>
 <pre><code>## Loading config file: /Users/runner/work/_temp/Library/unitar/extdata/metadata/project_config.yaml</code></pre>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">unitar</span><span class="fu">::</span><span class="fu"><a href="../reference/peptar_dirs.html">peptar_dirs</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "/Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1/"
 ## [2] "/Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata2/"
 ## [3] "/Users/runner/work/_temp/Library/unitar/extdata/"</code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">unitar</span><span class="fu">::</span><span class="fu"><a href="../reference/peptar_path.html">peptar_path</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"ref2"</span><span class="op">)</span></code></pre></div>
 <pre><code>## ref2</code></pre>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">unitar</span><span class="fu">::</span><span class="fu"><a href="../reference/peptar_meta.html">peptar_meta</a></span><span class="op">(</span><span class="va">p</span>, fields<span class="op">=</span><span class="st">"name"</span><span class="op">)</span></code></pre></div>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1/</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata2/</code></pre>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/</code></pre>
 <pre><code>## [[1]]
-## # A tibble: 4 x 1
-##   name                     
-##   &lt;chr&gt;                    
-## 1 build_big_reference_data 
-## 2 filter_big_reference_data
-## 3 big_data_set             
-## 4 filtered_data            
+## [1] NA
 ## 
 ## [[2]]
-## # A tibble: 4 x 1
-##   name      
-##   &lt;chr&gt;     
-## 1 ref_data_2
-## 2 filter_2  
-## 3 ref2      
-## 4 filt_ref2 
+## [1] NA
 ## 
 ## [[3]]
-## # A tibble: 30 x 1
-##    name          
-##    &lt;chr&gt;         
-##  1 unitar_exec   
-##  2 peptar_folders
-##  3 my_meta       
-##  4 peptar_exec   
-##  5 unitar_make   
-##  6 unitar_meta   
-##  7 peptar_make   
-##  8 unitar_load   
-##  9 unitar_path   
-## 10 peptar_meta   
-## # … with 20 more rows</code></pre>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+## [1] NA</code></pre>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">unitar</span><span class="fu">::</span><span class="fu"><a href="../reference/peptar_make.html">peptar_make</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
 <pre><code>## /Users/runner/work/_temp/Library/unitar/extdata/target_projects/refdata1/</code></pre>
 <pre><code>## ✔ skip target big_data_set
@@ -526,19 +608,19 @@ tprojects:
 ## 
 ## [[3]]
 ## [1] NA</code></pre>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">big_data_set2</span> <span class="op">=</span> <span class="fu"><a href="../reference/peptar_read.html">peptar_read</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"big_data_set"</span><span class="op">)</span></code></pre></div>
 <pre><code>## big_data_set</code></pre>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_pattern.html">head</a></span><span class="op">(</span><span class="va">big_data_set2</span><span class="op">)</span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>Or, using <code>peptar_load</code>:</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/peptar_load.html">peptar_load</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"big_data_set"</span><span class="op">)</span></code></pre></div>
 <pre><code>## big_data_set</code></pre>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_pattern.html">head</a></span><span class="op">(</span><span class="va">big_data_set</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -1.39609368 -0.04912618 -1.39020596 -0.74866919  0.93453822  0.97008189</code></pre>
+<pre><code>## NULL</code></pre>
 </div>
 </div>
   </div>
