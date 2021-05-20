@@ -49,7 +49,7 @@ track_external_target = function(tname, ext_tname, func) {
 #' @param argnames List of arg names
 #' @param argvals List of arg values
 #' @param argtypes List of arg types (use 'symbol' for targets)
-load_custom_old = function(tname, func, argnames, argvals, argtypes) {
+load_custom_old = function(tname, func, argvals, argtypes, argnames) {
   l = as.list(argvals)
   names(l) = argnames
   l[argtypes == "symbol"] = lapply(l[argtypes == "symbol"], as.symbol)
@@ -71,13 +71,15 @@ load_custom_old = function(tname, func, argnames, argvals, argtypes) {
 #' 
 #' @param tname Target name
 #' @param func Function to call
-#' @param argnames List of arg names
 #' @param argvals List of arg values
 #' @param argtypes List of arg types (use 'symbol' for targets)
+#' @param argnames List of arg names
 #' @export
-load_custom = function(tname, func, argnames, argvals, argtypes) {
+load_custom = function(tname, func, argvals, argtypes, argnames=NULL) {
   l = as.list(argvals)
-  names(l) = argnames
+  # if (!is.null(argnames)) {
+    names(l) = argnames
+  # }
 
   # First, handle function calls that have file paths as argument:
   # 1. Add a file tracking target, with _fileX appended to the target name
@@ -124,9 +126,9 @@ build_pep_resource_targets_prj_old = function(p) {
     } else if (tbl[[i, "type"]] == "call") {
       loadable_targets[[i]] = load_custom(tbl[[i, "sample_name"]],
                                        tbl[[i, "function"]],
-                                       tbl[[i, "argname"]],
                                        tbl[[i, "argval"]],
-                                       tbl[[i, "argtype"]]
+                                       tbl[[i, "argtype"]],
+                                       tbl[[i, "argname"]]
                                     )
     }
   }
@@ -145,9 +147,9 @@ build_pep_resource_targets_prj = function(p) {
   for (i in 1:nrow(tbl)) {
       loadable_targets[[i]] = load_custom(tbl[[i, "sample_name"]],
                                        tbl[[i, "function"]],
-                                       tbl[[i, "argname"]],
                                        pepr::.expandPath(tbl[[i, "argval"]]),
-                                       tbl[[i, "argtype"]]
+                                       tbl[[i, "argtype"]],
+                                       tbl[[i, "argname"]]
                                     )
   }
   return(loadable_targets)
@@ -161,16 +163,16 @@ build_pep_resource_targets_prj = function(p) {
 #' 
 #' @param p PEP.
 #' @param tpattern Target name, with patterns allowed
-#' @param func Character string of name of function to call
-#' @param argnames List of arg names
+#' @param func Function to call
 #' @param argvals_pattern List of arg values, with patterns allowed
 #' @param argtypes List of arg types (use 'symbol' for targets)
-#' @param combine_tname A target name for a combined 
-#' @param combine_func Character string of name of function for combining samples
+#' @param argnames List of arg names
+#' @param combine_tname Target name for a combined target that merges all of the individual targets
+#' @param combine_func_name Character vector of a function that will combine them.
 #' 
 #' @export
-tar_pep_foreach = function(p, tpattern, func, argnames, argvals_pattern, argtypes,
-  combine_tname=NULL, combine_func=list) {
+tar_pep_foreach = function(p, tpattern, func, argvals_pattern, argtypes, argnames=NULL,
+  combine_tname=NULL, combine_func_name="list") {
   tbl = sampleTable(p)
   loadable_targets = list() 
   for (i in 1:nrow(tbl)) {
@@ -178,17 +180,17 @@ tar_pep_foreach = function(p, tpattern, func, argnames, argvals_pattern, argtype
     argvals = sapply(argvals_pattern, function(x) {
       with(tbl[i,], glue::glue(x))
     })
-    loadable_targets[[tname]] = unitar::load_custom(tname, func, argnames, argvals, argtypes)
+    loadable_targets[[tname]] = unitar::load_custom(tname, func, argvals, argtypes, argnames)
   }
   tnames = names(loadable_targets)
   
   if (!is.null(combine_tname)) {
      loadable_targets[[length(loadable_targets)+1]] = unitar::load_custom(
-       combine_tname, combine_func, NULL, tnames, rep("symbol", len(tnames))) 
+       combine_tname, combine_func_name, tnames, rep("symbol", length(tnames)), tnames) 
   }
-
   return(loadable_targets)
 }
+
 
 
 
