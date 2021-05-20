@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Target factory for arbitrary functions on PEP samples — tar_pep_foreach • unitar</title>
+<title>List all targets available across all projects — unitar_list • unitar</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,13 @@
 
 
 
-<meta property="og:title" content="Target factory for arbitrary functions on PEP samples — tar_pep_foreach" />
-<meta property="og:description" content="This target factory creates a target for each element of a PEP. You can
-name the targets using a pattern that uses brackets to indicate sample
-attributes, like `sample_name`." />
+<meta property="og:title" content="List all targets available across all projects — unitar_list" />
+<meta property="og:description" content="If you have available targets from multiple projects, you might be
+interested in a quick look at them to see what you have available to load.
+This function just wraps tar_meta with a few defaults that are convenient
+for this purpose: it increase the default number of targets shown, and
+reduces the number of fields. It also runs it across all registered targets
+projects." />
 
 
 
@@ -113,62 +116,40 @@ attributes, like `sample_name`." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Target factory for arbitrary functions on PEP samples</h1>
+    <h1>List all targets available across all projects</h1>
     <small class="dont-index">Source: <a href='https://github.com/databio/unitar/blob/master/R/resource_projects.R'><code>R/resource_projects.R</code></a></small>
-    <div class="hidden name"><code>tar_pep_foreach.Rd</code></div>
+    <div class="hidden name"><code>unitar_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This target factory creates a target for each element of a PEP. You can
-name the targets using a pattern that uses brackets to indicate sample
-attributes, like `sample_name`.</p>
+    <p>If you have available targets from multiple projects, you might be
+interested in a quick look at them to see what you have available to load.
+This function just wraps tar_meta with a few defaults that are convenient
+for this purpose: it increase the default number of targets shown, and
+reduces the number of fields. It also runs it across all registered targets
+projects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tar_pep_foreach</span><span class='op'>(</span>
-  <span class='va'>p</span>,
-  <span class='va'>tpattern</span>,
-  <span class='va'>func</span>,
-  <span class='va'>argvals_pattern</span>,
-  <span class='va'>argtypes</span>,
-  argnames <span class='op'>=</span> <span class='cn'>NULL</span>,
-  combine_tname <span class='op'>=</span> <span class='cn'>NULL</span>,
-  combine_func_name <span class='op'>=</span> <span class='st'>"list"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>unitar_list</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>50</span>, fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"time"</span>, <span class='st'>"bytes"</span><span class='op'>)</span>, tar_dirs <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>p</th>
-      <td><p>PEP.</p></td>
+      <th>n</th>
+      <td><p>Number of targets to print (with sensible default)</p></td>
     </tr>
     <tr>
-      <th>tpattern</th>
-      <td><p>Target name, with patterns allowed</p></td>
+      <th>fields</th>
+      <td><p>Fields passed to tar_meta (with sensible default)</p></td>
     </tr>
     <tr>
-      <th>func</th>
-      <td><p>Function to call</p></td>
+      <th>tar_dirs</th>
+      <td><p>Target directories to search. NULL will use global option (the default).</p></td>
     </tr>
     <tr>
-      <th>argvals_pattern</th>
-      <td><p>List of arg values, with patterns allowed</p></td>
-    </tr>
-    <tr>
-      <th>argtypes</th>
-      <td><p>List of arg types (use 'symbol' for targets)</p></td>
-    </tr>
-    <tr>
-      <th>argnames</th>
-      <td><p>List of arg names</p></td>
-    </tr>
-    <tr>
-      <th>combine_tname</th>
-      <td><p>Target name for a combined target that merges all of the individual targets</p></td>
-    </tr>
-    <tr>
-      <th>combine_func_name</th>
-      <td><p>Character vector of a function that will combine them.</p></td>
+      <th>...</th>
+      <td><p>Any other arguments to pass to tar_meta</p></td>
     </tr>
     </table>
 

@@ -120,18 +120,18 @@
     <p>Execute a function across a list of tar_target folders</p>
     </div>
 
-    <pre class="usage"><span class='fu'>unitar_exec</span><span class='op'>(</span>tar_dirs <span class='op'>=</span> <span class='cn'>NULL</span>, func <span class='op'>=</span> <span class='va'>tar_make</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>unitar_exec</span><span class='op'>(</span>func <span class='op'>=</span> <span class='va'>tar_make</span>, tar_dirs <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>tar_dirs</th>
-      <td><p>A list of root folders of targets-managed projects</p></td>
-    </tr>
-    <tr>
       <th>func</th>
       <td><p>Function to execute</p></td>
+    </tr>
+    <tr>
+      <th>tar_dirs</th>
+      <td><p>A list of root folders of targets-managed projects</p></td>
     </tr>
     <tr>
       <th>...</th>
