@@ -8,11 +8,11 @@ tar_pep_foreach(
   p,
   tpattern,
   func,
-  argnames,
   argvals_pattern,
   argtypes,
+  argnames = NULL,
   combine_tname = NULL,
-  combine_func = list
+  combine_func_name = "list"
 )
 }
 \arguments{
@@ -20,17 +20,17 @@ tar_pep_foreach(
 
 \item{tpattern}{Target name, with patterns allowed}
 
-\item{func}{Character string of name of function to call}
-
-\item{argnames}{List of arg names}
+\item{func}{Function to call}
 
 \item{argvals_pattern}{List of arg values, with patterns allowed}
 
 \item{argtypes}{List of arg types (use 'symbol' for targets)}
 
-\item{combine_tname}{A target name for a combined}
+\item{argnames}{List of arg names}
 
-\item{combine_func}{Character string of name of function for combining samples}
+\item{combine_tname}{Target name for a combined target that merges all of the individual targets}
+
+\item{combine_func_name}{Character vector of a function that will combine them.}
 }
 \description{
 This target factory creates a target for each element of a PEP. You can

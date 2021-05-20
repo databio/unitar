@@ -4,18 +4,18 @@
 \alias{load_custom}
 \title{Helper function to build targets from function calls with custom args}
 \usage{
-load_custom(tname, func, argnames, argvals, argtypes)
+load_custom(tname, func, argvals, argtypes, argnames = NULL)
 }
 \arguments{
 \item{tname}{Target name}
 
 \item{func}{Function to call}
 
-\item{argnames}{List of arg names}
-
 \item{argvals}{List of arg values}
 
 \item{argtypes}{List of arg types (use 'symbol' for targets)}
+
+\item{argnames}{List of arg names}
 }
 \description{
 This function is a target factory that will produce a target for an

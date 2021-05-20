@@ -222,3 +222,35 @@ source_target_functions = function(config) {
     source(tf[[i]], local=parent.frame())
   }
 }
+
+#' List the targets available for loading
+#' 
+#' This function is useful for resource projects, where you want to see
+#' what you have available. It's just a simple wrapper that provides
+#' some sensible defaults to \code{tar_meta} for this use case.
+#' In the future I'd like it if this included a text description of the target
+#' @param n Number of targets to print (with sensible default)
+#' @param fields Fields passed to tar_meta (with sensible default)
+#' @param ... Any other arguments to pass to tar_meta
+#' @export
+tar_list = function(n=50, fields=c("name", "time", "bytes"), ...) {
+  print(tar_meta(targets_only=TRUE, fields=fields, ...), n=n)
+  invisible()
+}
+
+#' List all targets available across all projects
+#' 
+#' If you have available targets from multiple projects, you might be
+#' interested in a quick look at them to see what you have available to load.
+#' This function just wraps tar_meta with a few defaults that are convenient
+#' for this purpose: it increase the default number of targets shown, and
+#' reduces the number of fields. It also runs it across all registered targets
+#' projects.
+#' @param n Number of targets to print (with sensible default)
+#' @param fields Fields passed to tar_meta (with sensible default)
+#' @param tar_dirs Target directories to search. NULL will use global option (the default).
+#' @param ... Any other arguments to pass to tar_meta
+#' @export
+unitar_list = function(n=50, fields=c("name", "time", "bytes"), tar_dirs=NULL, ...) {
+  unitar_exec(func=tar_list, tar_dirs=tar_dirs)
+}

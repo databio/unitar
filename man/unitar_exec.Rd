@@ -4,12 +4,12 @@
 \alias{unitar_exec}
 \title{Execute a function across a list of tar_target folders}
 \usage{
-unitar_exec(tar_dirs = NULL, func = tar_make, ...)
+unitar_exec(func = tar_make, tar_dirs = NULL, ...)
 }
 \arguments{
-\item{tar_dirs}{A list of root folders of targets-managed projects}
-
 \item{func}{Function to execute}
+
+\item{tar_dirs}{A list of root folders of targets-managed projects}
 
 \item{...}{Additional arguments to function}
 }
