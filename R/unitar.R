@@ -50,7 +50,7 @@ unitar_make = function(tar_dirs=NULL) {
 #' @export
 unitar_meta = function(tar_dirs=NULL, ...) {
 	tar_dirs = get_tar_dirs(tar_dirs)
-	unitar_exec(func=tar_make, tar_dirs=tar_dirs, ...)
+	unitar_exec(func=tar_meta, tar_dirs=tar_dirs, ...)
 }
 
 
