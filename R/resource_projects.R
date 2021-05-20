@@ -161,22 +161,32 @@ build_pep_resource_targets_prj = function(p) {
 #' 
 #' @param p PEP.
 #' @param tpattern Target name, with patterns allowed
-#' @param func Function to call
+#' @param func Character string of name of function to call
 #' @param argnames List of arg names
 #' @param argvals_pattern List of arg values, with patterns allowed
 #' @param argtypes List of arg types (use 'symbol' for targets)
+#' @param combine_tname A target name for a combined 
+#' @param combine_func Character string of name of function for combining samples
 #' 
 #' @export
-tar_build_from_pep = function(p, tpattern, func, argnames, argvals_pattern, argtypes) {
+tar_pep_foreach = function(p, tpattern, func, argnames, argvals_pattern, argtypes,
+  combine_tname=NULL, combine_func=list) {
   tbl = sampleTable(p)
   loadable_targets = list() 
   for (i in 1:nrow(tbl)) {
-    tname = with(tbl[i,], glue(tpattern))
+    tname = with(tbl[i,], glue::glue(tpattern))
     argvals = sapply(argvals_pattern, function(x) {
-      with(tbl[i,], glue(x))
+      with(tbl[i,], glue::glue(x))
     })
-    loadable_targets[[i]] = unitar::load_custom(tname, func, argnames, argvals, argtypes)
+    loadable_targets[[tname]] = unitar::load_custom(tname, func, argnames, argvals, argtypes)
   }
+  tnames = names(loadable_targets)
+  
+  if (!is.null(combine_tname)) {
+     loadable_targets[[length(loadable_targets)+1]] = unitar::load_custom(
+       combine_tname, combine_func, NULL, tnames, rep("symbol", len(tnames))) 
+  }
+
   return(loadable_targets)
 }
 
