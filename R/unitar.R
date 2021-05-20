@@ -11,14 +11,14 @@
 NULL
 
 #' Execute a function across a list of tar_target folders
-#' @param tar_dirs A list of root folders of targets-managed projects
 #' @param func Function to execute
+#' @param tar_dirs A list of root folders of targets-managed projects
 #' @param ... Additional arguments to function
 #' @export
 #' @examples 
 #' tar_dirs=""
 #' unitar_exec(tar_dirs, tar_meta) 
-unitar_exec = function(tar_dirs=NULL, func=tar_make, ...) {
+unitar_exec = function(func=tar_make, tar_dirs=NULL, ...) {
 	tar_dirs = get_tar_dirs(tar_dirs)	
 	lapply(tar_dirs, function(folder) {
 		message(folder)
@@ -37,7 +37,7 @@ unitar_exec = function(tar_dirs=NULL, func=tar_make, ...) {
 #' @export
 unitar_make = function(tar_dirs=NULL) {
 	tar_dirs = get_tar_dirs(tar_dirs)
-	unitar_exec(tar_dirs, tar_make)
+	unitar_exec(func=tar_make, tar_dirs=tar_dirs)
 }
 
 
@@ -50,7 +50,7 @@ unitar_make = function(tar_dirs=NULL) {
 #' @export
 unitar_meta = function(tar_dirs=NULL, ...) {
 	tar_dirs = get_tar_dirs(tar_dirs)
-	unitar_exec(tar_dirs, tar_meta, ...)
+	unitar_exec(func=tar_make, tar_dirs=tar_dirs, ...)
 }
 
 
