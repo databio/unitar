@@ -1,4 +1,0 @@
-name|type|data|command|depend|seed|path|time|size|bytes|format|iteration|parent|children|seconds|warnings|error
-big_data_set_path|stem||ad0848538a5a9d4d|77bd079bba0b8a02|-310062012||||0|file|vector|||0.003||operator is invalid for atomic vectors
-local_filter_big_reference_data|function|a1c5014069f5955d||||||||||||||
-local_filter_big_reference_data|function|a1c5014069f5955d

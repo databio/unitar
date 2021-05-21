@@ -1,5 +1,0 @@
-name|type|data|command|depend|seed|path|time|size|bytes|format|iteration|parent|children|seconds|warnings|error
-file|stem|d73876bb22520d96|af9359a1ece1b930|ef46db3751d8e999|-1301001980|../refdata1/_targets/objects/big_data_set|3fb2b6615adbb155|c04bbced340a3c07|153591|file|vector|||0.001||
-big_data_set|stem|d73876bb22520d96|a4ce6777bab5d83f|80369c8936b731ca|-777343652|_targets/objects/big_data_set|1bb84d7d050d699e|c04bbced340a3c07|153591|rds|vector|||0.004||
-target_folders|object|5b00c89c2ebb0088||||||||||||||
-target_folders|object|5b00c89c2ebb0088
